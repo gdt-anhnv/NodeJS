@@ -1,18 +1,29 @@
 const net = require('net');
+const http = require('http');
 
-var client = new net.Socket();
-client.connect(8001, 'localhost', function()
+const server = http.createServer().listen(8080);
+var socket = new net.Socket();
+socket.connect(8001, 'localhost', function()
 {
     console.log('Connected');
 });
 
-client.on('data', function(data)
+server.on('request', function(req, res)
 {
-    console.log('received: ' + data);
-    client.destroy();
+    res.write('Hello World!');
+    res.end();
+
+    console.log('ping server');
+
+    socket.emit('client request', {my : 'data data'});
 });
 
-client.on('close', function()
+socket.on('data', function(data)
 {
-    console.log('closed');
-})
+    console.log('server respond: ' + data);
+});
+
+socket.on('close', function()
+{
+    console.log('Connection closed');
+});
