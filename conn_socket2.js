@@ -1,7 +1,7 @@
 const net = require('net');
 const http = require('http');
 
-const server = http.createServer().listen(8080);
+const server = http.createServer().listen(8088);
 var socket = new net.Socket();
 socket.connect(8001, 'localhost', function()
 {
@@ -18,7 +18,7 @@ server.on('request', function(req, res)
         if(null != socket)
         {
             console.log('ping server');
-            socket.write('data\n');
+            socket.write('data2\n');
         }
     }
 });
