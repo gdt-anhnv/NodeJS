@@ -1,5 +1,6 @@
 const net = require('net');
 const http = require('http');
+const sleep = require('sleep');
 
 const server = http.createServer().listen(8088);
 var socket = new net.Socket();
@@ -17,6 +18,7 @@ server.on('request', function(req, res)
     {
         if(null != socket)
         {
+            sleep.msleep(Math.floor(Math.random()) * 1000 + 2000);
             console.log('ping server');
             socket.write('data2\n');
         }
