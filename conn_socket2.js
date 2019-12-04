@@ -14,7 +14,7 @@ server.on('request', function(req, res)
     res.write('Hello World!');
     res.end();
 
-    for(var i = 0; i < 10; i++)
+    for(var i = 0; i < 4; i++)
     {
         if(null != socket)
         {
@@ -25,9 +25,11 @@ server.on('request', function(req, res)
     }
 });
 
-socket.on('data', function(data)
+var receive_data = '';
+socket.on('data', (data) =>
 {
-    console.log('server respond: ' + data);
+    receive_data += data;
+    console.log(data);
 });
 
 socket.on('close', function()
